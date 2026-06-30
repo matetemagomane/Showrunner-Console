@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Showrunner | Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <header class="app-header">
+            <div class="branding">
+                <h1>Show<span>runner</span></h1>
+                <p>Manage your favorite TV shows and episodes.</p>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-box">
+                    <span class="box-label">Total Shows</span>
+                    <h3 id="stat-total-shows">0</h3>
+                </div>
+                <div class="metric-box">
+                    <span class="box-label">Total Episodes</span>
+                    <h3 id="stat-total-episodes">0</h3>
+                </div>
+                <div class="metric-box">
+                    <span class="box-label">Mature Content (16+)</span>
+                    <h3 id="stat-mature-shows">0</h3>
+                </div>
+            </div>
+        </header>
+
+        <main class="workspace-grid">
+
+            <section class="card-panel">
+                <div class="panel-header">
+                    <h2>Add New Show</h2>
+                    <p>Fill in the details below to add a show to your library.</p>
+                </div>
+
+                <form id="seriesForm">
+                    <div class="input-group">
+                        <label for="seriesId">Show ID</label>
+                        <input type="text" id="seriesId" placeholder="e.g., BB-01" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="seriesName">Show Title</label>
+                        <input type="text" id="seriesName" placeholder="e.g., Breaking Bad" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="seriesCategory">Genre</label>
+                        <select id="seriesCategory" required>
+                            <option value="" disabled selected>-- Select Genre --</option>
+                            <option value="Action">Action / Drama</option>
+                            <option value="Animation">Animation</option>
+                            <option value="Comedy">Comedy</option>
+                        </select>
+                    </div>
+
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="seriesAge">Age Rating</label>
+                            <select id="seriesAge" required>
+                                <option value="" disabled selected>-- Select Rating --</option>
+                                <option value="All">General (All Ages)</option>
+                                <option value="PG">PG</option>
+                                <option value="13+">13+</option>
+                                <option value="16+">16+</option>
+                                <option value="18+">18+</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="seriesEpisodes">Total Episodes</label>
+                            <input type="number" id="seriesEpisodes" placeholder="Min 1" min="1" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="action-btn primary-btn">Add Show</button>
+                </form>
+            </section>
+
+            <section class="card-panel">
+                <div class="catalog-controls">
+                    <div class="search-wrapper">
+                        <input type="text" id="catalogSearch" placeholder="Search by title or ID...">
+                    </div>
+
+                    <div class="filter-tabs" id="filterTabs">
+                        <button class="tab-btn active" data-filter="All">All Genres</button>
+                        <button class="tab-btn" data-filter="Action">Action</button>
+                        <button class="tab-btn" data-filter="Animation">Animation</button>
+                        <button class="tab-btn" data-filter="Comedy">Comedy</button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Show Title</th>
+                                <th>Genre</th>
+                                <th>Age Rating</th>
+                                <th>Episodes</th>
+                                <th style="text-align: right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="catalogTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <footer class="studio-signature">
+            <p>Designed and built by <span>Framework Studio</span> &copy; 2026</p>
+        </footer>
+    </div>
+
+    <div id="updateModal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2>Edit Show Details</h2>
+                <p>Updating details for: <span id="modalTargetId"></span></p>
+            </div>
+            <form id="modalUpdateForm">
+                <input type="hidden" id="editIndex">
+
+                <div class="input-group">
+                    <label for="editName">Show Title</label>
+                    <input type="text" id="editName" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="editCategory">Genre</label>
+                    <select id="editCategory" required>
+                        <option value="Action">Action / Drama</option>
+                        <option value="Animation">Animation</option>
+                        <option value="Comedy">Comedy</option>
+                    </select>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="editAge">Age Rating</label>
+                        <select id="editAge" required>
+                            <option value="All">General (All Ages)</option>
+                            <option value="PG">PG</option>
+                            <option value="13+">13+</option>
+                            <option value="16+">16+</option>
+                            <option value="18+">18+</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="editEpisodes">Number of Episodes</label>
+                        <input type="number" id="editEpisodes" min="1" required>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" id="closeModalBtn" class="action-btn secondary-btn">Cancel</button>
+                    <button type="submit" class="action-btn dynamic-accent-btn">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
